@@ -49,3 +49,6 @@ Build.ps1 is a PowerShell script that can be used to automate the build process.
 * Change project `helloworld` to something else.
 * Change `ProductCode` & `UpgradeCode` GUIDs in `Product.wxs`.
 * Change `UpgradeCode` in `Bundle.wxs`.
+
+# References
+* VC Redist Bootstrapper is a direct copy of the gist [here](https://gist.github.com/nathancorvussolis/6852ba282647aeb0c5c00e742e28eb48). This has some bugs, when detecting VersionNT & VersionNT64, which have been addressed in the scripts here.
