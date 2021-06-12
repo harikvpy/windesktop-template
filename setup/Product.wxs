@@ -75,12 +75,12 @@
 
   <Fragment>
     <DirectoryRef Id="SmallpearlProgramMenuFolder">
-      <Component Id="ApplicationShortcut" Guid="D7CC861F-EDA7-4A50-BB86-92AC5C419217">
+      <Component Id="ApplicationShortcut" Guid="CD862C38-6233-4DAE-9432-8975800DFAC7">
         <Shortcut Id="VirtualCamShortcut"
-                  Name="Smallpearl OBS HelloWorld"
-                  Description="Smallpearl OBS Virtual Webcam"
-                  Target="[BINBITNESS]HelloWorld.exe"
-                  WorkingDirectory="BINBITNESS"/>
+                  Name="Smallpearl HelloWorld"
+                  Description="Smallpearl Virtual Webcam"
+                  Target="[INSTALLFOLDER]HelloWorld.exe"
+                  WorkingDirectory="INSTALLFOLDER"/>
         <RemoveFolder Id="CleanUpShortCutParent" Directory="SmallpearlProgramMenuFolder" On="uninstall"/>
       </Component>
     </DirectoryRef>

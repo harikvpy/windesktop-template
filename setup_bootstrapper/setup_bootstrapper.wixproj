@@ -6,7 +6,7 @@
     <ProductVersion>3.10</ProductVersion>
     <ProjectGuid>81363487-41de-4b87-97eb-dad7c0d79356</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>setup_bootstrapper</OutputName>
+    <OutputName>helloworldsetup</OutputName>
     <OutputType>Bundle</OutputType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">

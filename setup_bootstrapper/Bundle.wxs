@@ -20,7 +20,7 @@
         SuppressOptionsUI="yes" />
     </BootstrapperApplicationRef>
 
-<util:ProductSearch
+    <util:ProductSearch
       Id="VCRedist2015x64"
       Result="version"
       Variable="VCRedist2015x64"
@@ -33,7 +33,7 @@
       Result="version"
       Variable="VCRedist2015x86"
       UpgradeCode="65E5BD06-6392-3027-8C26-853107D3CF1A"
-      Condition="VersionNT" />
+      Condition="VersionNT&lt;&gt;VersionNT64" />
 
     <!-- Visual C++ 2015-2019 Redistributable minimum runtime msi package version -->
     <Variable Name="VCRedist2015" Type="version" Value="14.28.29914.0" />
@@ -78,7 +78,7 @@
         PerMachine="yes"
         Permanent="yes"
         Protocol="burn"
-        InstallCondition="VersionNT"
+        InstallCondition="VersionNT&lt;&gt;VersionNT64"
         DetectCondition="VCRedist2015x86 >= VCRedist2015"
         DownloadUrl="https://download.visualstudio.microsoft.com/download/pr/85d47aa9-69ae-4162-8300-e6b7e4bf3cf3/14563755AC24A874241935EF2C22C5FCE973ACB001F99E524145113B2DC638C1/VC_redist.x86.exe"
         InstallCommand="/install /quiet /norestart"
