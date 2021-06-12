@@ -19,6 +19,25 @@
         ShowVersion="yes"
         SuppressOptionsUI="yes" />
     </BootstrapperApplicationRef>
+
+<util:ProductSearch
+      Id="VCRedist2015x64"
+      Result="version"
+      Variable="VCRedist2015x64"
+      UpgradeCode="36F68A90-239C-34DF-B58C-64B30153CE35"
+      Condition="VersionNT64" />
+
+    <!-- Visual C++ 2015-2019 Redistributable (x86) minimum runtime msi package version -->
+    <util:ProductSearch
+      Id="VCRedist2015x86"
+      Result="version"
+      Variable="VCRedist2015x86"
+      UpgradeCode="65E5BD06-6392-3027-8C26-853107D3CF1A"
+      Condition="VersionNT" />
+
+    <!-- Visual C++ 2015-2019 Redistributable minimum runtime msi package version -->
+    <Variable Name="VCRedist2015" Type="version" Value="14.28.29914.0" />
+
 		<Chain>
       <!-- use heat command to get RemotePayload attributes -->
       <!-- example: heat payload vc_redist.x64.exe -o x64.wxs -->
