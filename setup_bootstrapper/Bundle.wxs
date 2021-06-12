@@ -11,7 +11,8 @@
   xmlns:bal="http://schemas.microsoft.com/wix/BalExtension"
   xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
   >
-	<Bundle Name="setup_bootstrapper" Version="1.0.0.0" Manufacturer="Smallpearl LLC." UpgradeCode="81363487-41de-4b87-97eb-dad7c0d79356">
+	<Bundle Name="HelloWorld $(var.PRODUCT_VERSION)" Version="$(var.PRODUCT_VERSION)"
+    Manufacturer="Smallpearl LLC." UpgradeCode="81363487-41de-4b87-97eb-dad7c0d79356">
     <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense">
       <bal:WixStandardBootstrapperApplication
         LicenseFile="license.rtf"

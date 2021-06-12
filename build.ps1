@@ -34,13 +34,13 @@ Write-Output "Replacing version strings in relevant files..."
 # }
 
 # Update rc file
-$rcfile = ".\virtualcam\virtualcam.rc"
+$rcfile = ".\helloworld\helloworld.rc"
 (Get-Content $rcfile) -replace "FILEVERSION(\s+)\d+,\d+,\d+,\d+", "FILEVERSION 0,$major,$minor,$newBuild" | Out-File $rcfile
 (Get-Content $rcfile) -replace "PRODUCTVERSION(\s+)\d+,\d+,\d+,\d+", "PRODUCTVERSION 0,$major,$minor,$newBuild" | Out-File $rcfile
 (Get-Content $rcfile) -replace "`"FileVersion`",(\s+)`"\d+.\d+.\d+.\d+`"", "`"FileVersion`", `"0.$major.$minor.$newBuild`"" | Out-File $rcfile
 (Get-Content $rcfile) -replace "`"ProductVersion`",(\s+)`"\d+.\d+.\d+.\d+`"", "`"ProductVersion`", `"0.$major.$minor.$newBuild`"" | Out-File $rcfile
 # Generate version.h so that About Box will reflect correct version
-Set-Content .\virtualcam\version.h "#pragma once`r`n`r`n#define VERSION `"$major.$minor.$newBuild`"`r`n"
+Set-Content .\helloworld\version.h "#pragma once`r`n`r`n#define VERSION `"$major.$minor.$newBuild`"`r`n"
 
 # Set environment variable for WiX scripts
 $env:PRODUCT_VERSION="$newVerStr"
@@ -55,16 +55,26 @@ if (!$skipVersionIncr) {
 Write-Output "Starting build.."
 # Setup Visual Studio environment
 & .\vs2019.ps1
-# Kick off build
-msbuild .\virtualcam.sln /p:Configuration=Release /p:Platform=x64
+# Kick off build, x64 first
+msbuild .\windesktop-template.sln /p:Configuration=Release /p:Platform=x64
 if (!($LastExitCode -eq 0)) {
     Write-Output "Error in building.."
     exit 1
 }
+# x86 (Win32) next
+msbuild .\windesktop-template.sln /p:Configuration=Release /p:Platform=x86
+if (!($LastExitCode -eq 0)) {
+    Write-Output "Error in building.."
+    exit 1
+}
+
 # Append version to setup output.
-$setupFile = ".\dist\x64\Release\virtualcamsetup.exe"
-$setupFileWithVersion = $setupFile.Replace("virtualcamsetup", "virtualcamsetup_$newVerStr")
-Move-Item $setupFile $setupFileWithVersion
+$setupFile = ".\setup_bootstrapper\bin\Release\setup_bootstrapper.exe"
+if (!(Test-Path -Path .\dist)) { mkdir .\dist | Out-Null }
+if (!(Test-Path -Path .\dist\Release)) { mkdir .\dist\Release | Out-Null }
+
+$setupFileWithVersion = ".\dist\Release\helloworldsetup_$newVerStr"
+Copy-Item $setupFile $setupFileWithVersion
 $tag = "v$newVerStr"
 Write-Output "Solution built."
 # Tag git
@@ -72,8 +82,8 @@ if (!$skipGitCommit) {
     Write-Output "Committing & tagging as '$tag'"
     git commit -a -m "Release v$newVerStr"
     git tag $tag
-    git push origin
-    git push origin --tags
+    # git push origin
+    # git push origin --tags
 } else {
     Write-Output "Skipping committing & tagging"
 }
