@@ -110,7 +110,7 @@
         ForcePerMachine="yes"
         Compressed="yes"
         SourceFile="..\setup\bin\Release\helloworld.msi"
-        InstallCondition="VersionNT" />
+        InstallCondition="VersionNT&lt;&gt;VersionNT64" />
 
 		</Chain>
 	</Bundle>

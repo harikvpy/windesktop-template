@@ -76,7 +76,7 @@ if (!($LastExitCode -eq 0)) {
 }
 
 # Append version to setup output.
-$setupFile = ".\setup_bootstrapper\bin\Release\setup_bootstrapper.exe"
+$setupFile = ".\setup_bootstrapper\bin\Release\helloworldsetup.exe"
 if (!(Test-Path -Path .\dist)) { mkdir .\dist | Out-Null }
 if (!(Test-Path -Path .\dist\Release)) { mkdir .\dist\Release | Out-Null }
 
