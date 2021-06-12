@@ -19,6 +19,16 @@ vs2019.ps1 | A PowerShell script to setup Visual Studio 2019 development environ
 ## Application
 This is a plain Windows Desktop application, generated using the Visual Studio Desktop Application wizard. One key point is that the application dynamically links to VC runtime library. Therefore an installer for this  app would require the VC runtime to be installed as a pre-requisite.
 
+The build script (see below) generates a file version.h, with the following contents
+
+```
+#pragma once
+
+#define VERSION "0.0.10"
+```
+
+You may read this file from the application to display the program version, perhaps in an appropriate About box. The sample program does not do this, FYI.
+
 ## MSI Installer
 Installer is slightly more complex than the application above. It has to cater for installing to both Win32 & x64 platforms with separate binaries. Also the target Program Files folder is different for these two platforms. The WiX project handles this by using WiX pre-processor variables.
 
@@ -31,6 +41,7 @@ Specifically the installer does the following:
   ```
    ..\windesktop-wix-template> heat dir ..\deps\ -cg ProgramDependencies -ke -dr INSTALLFOLDER -gg -g1 -sfrag -srd -out deps.wxs -swall -var var.DependenciesFolder
    ```
+   This command is run as part of the command line build process from the build script (see `build.ps1)`.
 
 ## MSI Bootstrapper
 This essentially bundles the x64 & x86 MSI files from above with the relevant VC Runtime redistributables. Both the MSI files are packaged and depending on the platform bitness, the appropriate MSI is installed. The same goes for the VC Runtime redistributable as well.
