@@ -21,9 +21,12 @@
 <?endif ?>
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="*" Name="HelloWorld $(var.PRODUCT_VERSION)" Version="$(var.PRODUCT_VERSION)"
-           Language="1033" Manufacturer="Smallpearl LLC."
-           UpgradeCode="$(var.Property_UpgradeCode)">
+  <Product Id="*"
+    Name="Smallpearl HelloWorld $(var.PRODUCT_VERSION)"
+    Version="$(var.PRODUCT_VERSION)"
+    Language="1033"
+    Manufacturer="Smallpearl LLC."
+    UpgradeCode="$(var.Property_UpgradeCode)">
 
     <Package InstallerVersion="301" Compressed="yes" InstallScope="perMachine" />
 
