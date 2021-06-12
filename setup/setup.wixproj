@@ -28,8 +28,10 @@
     <SuppressValidation>True</SuppressValidation>
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>DependenciesFolder=..\deps</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="deps.wxs" />
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>

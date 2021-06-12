@@ -27,6 +27,10 @@ Specifically the installer does the following:
 * Installs `helloworld.exe` to ProgramFilesFolder\SmallPearl\HelloWorld
 * Creates an application shortcut in Start Menu
 * Handles upgrade via an UpgradeCode.
+* Dependency files can be added by copying them to `.\deps` folder, contents of which are installed to the same folder as `helloworld.exe`. The file list is generated using the WiX harvest too using the command:
+  ```
+   ..\windesktop-wix-template> heat dir ..\deps\ -cg ProgramDependencies -ke -dr INSTALLFOLDER -gg -g1 -sfrag -srd -out deps.wxs -swall -var var.DependenciesFolder
+   ```
 
 ## MSI Bootstrapper
 This essentially bundles the x64 & x86 MSI files from above with the relevant VC Runtime redistributables. Both the MSI files are packaged and depending on the platform bitness, the appropriate MSI is installed. The same goes for the VC Runtime redistributable as well.

@@ -78,7 +78,7 @@
 
   <Fragment>
     <DirectoryRef Id="SmallpearlProgramMenuFolder">
-      <Component Id="ApplicationShortcut" Guid="*">
+      <Component Id="ApplicationShortcut" Guid="{A036B5BD-C9BB-419E-ACC2-2A1A5D64F0CD}">
         <Shortcut Id="HelloWorldShortcut"
                   Name="Smallpearl HelloWorld"
                   Description="Smallpearl HelloWorld"
@@ -100,6 +100,7 @@
           <RegistryValue Type="string" Name="HelloWorld" Value="[INSTALLFOLDER]helloworld.exe" />
         </RegistryKey> -->
       </Component>
+      <ComponentGroupRef Id="ProgramDependencies"/>
     </ComponentGroup>
   </Fragment>
 

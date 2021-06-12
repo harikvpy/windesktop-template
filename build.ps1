@@ -62,6 +62,12 @@ if (!$skipVersionIncr) {
 Write-Output "Starting build.."
 # Setup Visual Studio environment
 & .\vs2019.ps1
+# Regenerate deps.wxs
+$heat = $env:WIX + "bin\heat.exe"
+Push-Location .\setup
+& $heat dir ..\deps\ -cg ProgramDependencies -ke -dr INSTALLFOLDER -gg -g1 -sfrag -srd -out deps.wxs -swall -var var.DependenciesFolder
+Pop-Location
+
 # Kick off build, x64 first
 msbuild .\windesktop-template.sln /p:Configuration=Release /p:Platform=x64
 if (!($LastExitCode -eq 0)) {
