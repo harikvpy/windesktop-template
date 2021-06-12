@@ -11,8 +11,13 @@ function replaceVersionStr($file, $curStr, $newStr) {
 # Check if there are pending changes to be committed. Source tree has
 # to be clean meaning all changes should be commited to repo before
 # build can proceed.
-git diff --quiet --cached --exit-code
-if (!($LastExitCode -eq 0)) {
+git diff --exit-code | Out-Null
+if (!$?) {
+    Write-Output "There are pending changes to be commited."
+    exit 1
+}
+git diff --cached --exit-code | Out-Null
+if (!$?) {
     Write-Output "There are pending changes to be commited."
     exit 1
 }
