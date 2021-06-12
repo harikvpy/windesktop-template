@@ -20,6 +20,10 @@
         SuppressOptionsUI="yes" />
     </BootstrapperApplicationRef>
 
+    <!--
+      VC redist installation code below is borrowed from:
+      https://gist.github.com/nathancorvussolis/6852ba282647aeb0c5c00e742e28eb48
+    -->
     <util:ProductSearch
       Id="VCRedist2015x64"
       Result="version"
