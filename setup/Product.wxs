@@ -17,7 +17,7 @@
     Value 99 for last version quadrant indicates this was not built with
     build script!
     -->
-<?define PRODUCT_VERSION=0.0.999 ?>
+<?define PRODUCT_VERSION=0.0.0 ?>
 <?endif ?>
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
@@ -79,9 +79,9 @@
   <Fragment>
     <DirectoryRef Id="SmallpearlProgramMenuFolder">
       <Component Id="ApplicationShortcut" Guid="CD862C38-6233-4DAE-9432-8975800DFAC7">
-        <Shortcut Id="VirtualCamShortcut"
+        <Shortcut Id="HelloWorldShortcut"
                   Name="Smallpearl HelloWorld"
-                  Description="Smallpearl Virtual Webcam"
+                  Description="Smallpearl HelloWorld"
                   Target="[INSTALLFOLDER]HelloWorld.exe"
                   WorkingDirectory="INSTALLFOLDER"/>
         <RemoveFolder Id="CleanUpShortCutParent" Directory="SmallpearlProgramMenuFolder" On="uninstall"/>

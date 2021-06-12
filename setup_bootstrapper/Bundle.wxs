@@ -4,7 +4,7 @@
 <!-- Extract product version from environment -->
 <?define PRODUCT_VERSION=$(env.PRODUCT_VERSION) ?>
 <?else ?>
-<?define PRODUCT_VERSION=0.0.999 ?>
+<?define PRODUCT_VERSION=0.0.0 ?>
 <?endif ?>
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
