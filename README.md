@@ -49,6 +49,3 @@ Build.ps1 is a PowerShell script that can be used to automate the build process.
 * Change project `helloworld` to something else.
 * Change `ProductCode` & `UpgradeCode` GUIDs in `Product.wxs`.
 * Change `UpgradeCode` in `Bundle.wxs`.
-
-
-
