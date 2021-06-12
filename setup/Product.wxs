@@ -14,7 +14,7 @@
 <?define PRODUCT_VERSION=$(env.PRODUCT_VERSION) ?>
 <?else ?>
 <!--
-    Value 99 for last version quadrant indicates this was not built with
+    Value 0 for last version quadrant indicates this was not built with
     build script!
     -->
 <?define PRODUCT_VERSION=0.0.0 ?>
@@ -93,6 +93,12 @@
     <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
       <Component Id="HelloWorld">
         <File Id="HelloWorld" Source="$(var.helloworld.TargetPath)" KeyPath="yes" />
+        <!-- Create Registry Entry -->
+        <!-- <RegistryValue Root="HKLM" Key="Software\Smallpearl\HelloWorld" Name="dummy" Type="integer" Value="1" KeyPath="yes"/> -->
+        <!-- Create entry to start helloworld.exe upon user login -->
+        <!-- <RegistryKey Root="HKLM" Key="Software\Microsoft\Windows\CurrentVersion\Run" >
+          <RegistryValue Type="string" Name="HelloWorld" Value="[INSTALLFOLDER]helloworld.exe" />
+        </RegistryKey> -->
       </Component>
     </ComponentGroup>
   </Fragment>
