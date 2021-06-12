@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?ifdef env.PRODUCT_VERSION ?>
+<!-- Extract product version from environment -->
+<?define PRODUCT_VERSION=$(env.PRODUCT_VERSION) ?>
+<?else ?>
+<?define PRODUCT_VERSION=0.0.999 ?>
+<?endif ?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+  xmlns:bal="http://schemas.microsoft.com/wix/BalExtension"
+  xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
+  >
+	<Bundle Name="setup_bootstrapper" Version="1.0.0.0" Manufacturer="Smallpearl LLC." UpgradeCode="81363487-41de-4b87-97eb-dad7c0d79356">
+    <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense">
+      <bal:WixStandardBootstrapperApplication
+        LicenseFile="license.rtf"
+        ShowVersion="yes"
+        SuppressOptionsUI="yes" />
+    </BootstrapperApplicationRef>
+		<Chain>
+      <!-- use heat command to get RemotePayload attributes -->
+      <!-- example: heat payload vc_redist.x64.exe -o x64.wxs -->
+
+      <!-- Visual C++ 2015-2019 Redistributable (x64) - 14.28.29914 -->
+      <ExePackage
+        Id="vc_redist.x64.exe"
+        Name="vc_redist.x64.14.28.29914.0.exe"
+        DisplayName="Microsoft Visual C++ 2015-2019 Redistributable (x64) - 14.28.29914"
+        Cache="no"
+        Compressed="no"
+        PerMachine="yes"
+        Permanent="yes"
+        Protocol="burn"
+        InstallCondition="VersionNT64"
+        DetectCondition="VCRedist2015x64 >= VCRedist2015"
+        DownloadUrl="https://download.visualstudio.microsoft.com/download/pr/85d47aa9-69ae-4162-8300-e6b7e4bf3cf3/52B196BBE9016488C735E7B41805B651261FFA5D7AA86EB6A1D0095BE83687B2/VC_redist.x64.exe"
+        InstallCommand="/install /quiet /norestart"
+        RepairCommand="/repair /quiet /norestart"
+        UninstallCommand="/uninstall /quiet /norestart" >
+        <RemotePayload
+          ProductName="Microsoft Visual C++ 2015-2019 Redistributable (x64) - 14.28.29914"
+          Description="Microsoft Visual C++ 2015-2019 Redistributable (x64) - 14.28.29914"
+          Version="14.28.29914.0"
+          CertificatePublicKey="F49F9B33E25E33CCA0BFB15A62B7C29FFAB3880B"
+          CertificateThumbprint="ABDCA79AF9DD48A0EA702AD45260B3C03093FB4B"
+          Hash="A4EFAD335D3CCFA19963F53398E87BE5C8BEBC45"
+          Size="14882064" />
+      </ExePackage>
+
+      <!-- Visual C++ 2015-2019 Redistributable (x86) - 14.28.29914 -->
+      <ExePackage
+        Id="vc_redist.x86.exe"
+        Name="vc_redist.x86.14.28.29914.0.exe"
+        DisplayName="Microsoft Visual C++ 2015-2019 Redistributable (x86) - 14.28.29914"
+        Cache="no"
+        Compressed="no"
+        PerMachine="yes"
+        Permanent="yes"
+        Protocol="burn"
+        InstallCondition="VersionNT"
+        DetectCondition="VCRedist2015x86 >= VCRedist2015"
+        DownloadUrl="https://download.visualstudio.microsoft.com/download/pr/85d47aa9-69ae-4162-8300-e6b7e4bf3cf3/14563755AC24A874241935EF2C22C5FCE973ACB001F99E524145113B2DC638C1/VC_redist.x86.exe"
+        InstallCommand="/install /quiet /norestart"
+        RepairCommand="/repair /quiet /norestart"
+        UninstallCommand="/uninstall /quiet /norestart" >
+        <RemotePayload
+          ProductName="Microsoft Visual C++ 2015-2019 Redistributable (x86) - 14.28.29914"
+          Description="Microsoft Visual C++ 2015-2019 Redistributable (x86) - 14.28.29914"
+          Version="14.28.29914.0"
+          CertificatePublicKey="F49F9B33E25E33CCA0BFB15A62B7C29FFAB3880B"
+          CertificateThumbprint="ABDCA79AF9DD48A0EA702AD45260B3C03093FB4B"
+          Hash="D848A57ADB68456B91BD8BA5108C116DE8DA8F25"
+          Size="14327344" />
+      </ExePackage>
+
+      <!-- x64 modules -->
+      <MsiPackage
+        Id="X64"
+        DisplayName="x64 modules"
+        ForcePerMachine="yes"
+        Compressed="yes"
+        SourceFile="..\setup\bin\x64\Release\helloworld.msi"
+        InstallCondition="VersionNT64" />
+
+      <!-- x86 modules -->
+      <MsiPackage
+        Id="X86"
+        DisplayName="x86 modules"
+        ForcePerMachine="yes"
+        Compressed="yes"
+        SourceFile="..\setup\bin\Release\helloworld.msi"
+        InstallCondition="VersionNT" />
+
+		</Chain>
+	</Bundle>
+</Wix>

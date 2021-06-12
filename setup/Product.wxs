@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Set a specific product code based on the processor architecture build variable -->
+<?if $(var.Platform)=x64 ?>
+<?define Property_ProductCode = "AA37873D-0208-4685-B807-BDF33EE1EE75" ?>
+<?else ?>
+<?define Property_ProductCode = "AFEDEA58-D422-42CD-B2CF-B34A90438B3C" ?>
+<?endif ?>
+
+<?define Property_UpgradeCode = "2AB657E4-EC6C-4B31-BA39-787464EBB48F" ?>
+
+<?ifdef env.PRODUCT_VERSION ?>
+<!-- Extract product version from environment -->
+<?define PRODUCT_VERSION=$(env.PRODUCT_VERSION) ?>
+<?else ?>
+<!--
+    Value 99 for last version quadrant indicates this was not built with
+    build script!
+    -->
+<?define PRODUCT_VERSION=0.0.999 ?>
+<?endif ?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" Name="HelloWorld $(var.PRODUCT_VERSION)" Version="$(var.PRODUCT_VERSION)"
+           Language="1033" Manufacturer="Smallpearl LLC."
+           UpgradeCode="$(var.Property_UpgradeCode)">
+
+    <Package InstallerVersion="301" Compressed="yes" InstallScope="perMachine" />
+
+    <MajorUpgrade
+      Schedule="afterInstallInitialize"
+      AllowDowngrades="no"
+      AllowSameVersionUpgrades="no"
+      DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+
+    <MediaTemplate EmbedCab="yes" />
+
+    <Feature Id="ProductFeature" Title="setup" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentRef Id="ApplicationShortcut" />
+    </Feature>
+
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER"/>
+    <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
+
+    <UI>
+      <UIRef Id="WixUI_InstallDir" />
+    </UI>
+
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <?if $(var.Platform)=x64 ?>
+      <Directory Id="ProgramFiles64Folder">
+        <Directory Id="Smallpearl" Name="Smallpearl">
+          <Directory Id="INSTALLFOLDER" Name="HelloWorld">
+          </Directory>
+        </Directory>
+      </Directory>
+      <?else?>
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="Smallpearl" Name="Smallpearl">
+          <Directory Id="INSTALLFOLDER" Name="HelloWorld">
+          </Directory>
+        </Directory>
+      </Directory>
+      <?endif?>
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="SmallpearlProgramMenuFolder" Name="Smallpearl">
+        </Directory>
+      </Directory>
+    </Directory>
+  </Fragment>
+
+  <Fragment>
+    <DirectoryRef Id="SmallpearlProgramMenuFolder">
+      <Component Id="ApplicationShortcut" Guid="D7CC861F-EDA7-4A50-BB86-92AC5C419217">
+        <Shortcut Id="VirtualCamShortcut"
+                  Name="Smallpearl OBS HelloWorld"
+                  Description="Smallpearl OBS Virtual Webcam"
+                  Target="[BINBITNESS]HelloWorld.exe"
+                  WorkingDirectory="BINBITNESS"/>
+        <RemoveFolder Id="CleanUpShortCutParent" Directory="SmallpearlProgramMenuFolder" On="uninstall"/>
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="HelloWorld">
+        <File Id="HelloWorld" Source="$(var.helloworld.TargetPath)" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+</Wix>
