@@ -45,10 +45,26 @@ Build.ps1 is a PowerShell script that can be used to automate the build process.
 * Builds the MSI bootstrapper & copies it to `dist\Release` folder, appending the version to the filename.
 * Commits & tags all changes. Tag is of the format `v<major>.<minor>.<build>`
 
-# Things to Change
-* Change project `helloworld` to something else.
-* Change `ProductCode` & `UpgradeCode` GUIDs in `Product.wxs`.
-* Change `UpgradeCode` in `Bundle.wxs`.
+Build script accepts two command line parameters:
+
+Parameter | Description
+-----|-------
+skipGitCommit | Skip commiting changes to git after build. This also disables detection of local changes before guild proceeds.
+skipVersionIncr | Skip auto incrementing the version at the end of build.
+
+Currently, version increment is done only to the third quadrant value. That is the `patch` number. Ideally the script should support an option to specify if the build being invoked is `major`, `minor` or `patch` and increment the version in the corresponding quadrant.
+
+# How to use
+* Clone this repo
+* Change the git upstream repository to yours
+* Change project `helloworld` name to something else. You can update the Visual Studio project/solution files from any text editor. Or use PowerShell regex to do global search & replace. (Refer to `build.ps1` for examples on how to do regex in PowerShell)
+* Update the WiX GUIDS:
+  * `ProductCode` & `UpgradeCode` GUIDs in `Product.wxs`.
+  * `UpgradeCode` in `Bundle.wxs`.
 
 # References
 * VC Redist Bootstrapper is a direct copy of the gist [here](https://gist.github.com/nathancorvussolis/6852ba282647aeb0c5c00e742e28eb48). This has some bugs, when detecting VersionNT & VersionNT64, which have been addressed in the scripts here.
+
+# TODO
+* Support `buildType` build script parameter to determine which version quadrant to increment. For eg.: `[-buildType={major|minor|patch}]`, with `patch` being the default.
+*
