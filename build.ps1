@@ -73,7 +73,7 @@ $setupFile = ".\setup_bootstrapper\bin\Release\setup_bootstrapper.exe"
 if (!(Test-Path -Path .\dist)) { mkdir .\dist | Out-Null }
 if (!(Test-Path -Path .\dist\Release)) { mkdir .\dist\Release | Out-Null }
 
-$setupFileWithVersion = ".\dist\Release\helloworldsetup_$newVerStr"
+$setupFileWithVersion = ".\dist\Release\helloworldsetup_$newVerStr.exe"
 Copy-Item $setupFile $setupFileWithVersion
 $tag = "v$newVerStr"
 Write-Output "Solution built."
