@@ -2,7 +2,7 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
         <DirectoryRef Id="INSTALLFOLDER">
-            <Component Id="cmpDB41F4F783A50C3C8CAA412AB246BED2" Guid="FA0DC0DA-B7B1-4318-BF09-1129E5439EAD">
+            <Component Id="cmpDB41F4F783A50C3C8CAA412AB246BED2" Guid="8A224B9F-5DB4-4A78-843D-90579D8D1B38">
                 <File Id="fil6A6836C0CDEB46D06BC08D64BE1AF444" KeyPath="yes" Source="$(var.DependenciesFolder)\abc.dat" />
             </Component>
         </DirectoryRef>
