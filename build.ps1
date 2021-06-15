@@ -95,8 +95,12 @@ if (!$skipGitCommit) {
     Write-Output "Committing & tagging as '$tag'"
     git commit -a -m "Release v$newVerStr"
     git tag $tag
-    # git push origin
-    # git push origin --tags
+    # Detect if repo has a remote repo configured. If it has, push the commit & tag
+    $Remotes = git remote -v | Measure-Object -line
+    if ($Remotes.Lines -gt 0) {
+        git push origin
+        git push origin --tags
+    }
 } else {
     Write-Output "Skipping committing & tagging"
 }
