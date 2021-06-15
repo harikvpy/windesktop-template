@@ -69,13 +69,13 @@ Push-Location .\setup
 Pop-Location
 
 # Kick off build, x64 first
-msbuild .\windesktop-template.sln /p:Configuration=Release /p:Platform=x64
+msbuild .\windesktop-wix-template.sln /p:Configuration=Release /p:Platform=x64
 if (!($LastExitCode -eq 0)) {
     Write-Output "Error in building.."
     exit 1
 }
 # x86 (Win32) next
-msbuild .\windesktop-template.sln /p:Configuration=Release /p:Platform=x86
+msbuild .\windesktop-wix-template.sln /p:Configuration=Release /p:Platform=x86
 if (!($LastExitCode -eq 0)) {
     Write-Output "Error in building.."
     exit 1
